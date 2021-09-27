@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Groups</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <a href="/xslt/groups" style="position: absolute; top: 15px; right: 15px">To XSL version</a>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/groups}">Show groups</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/courses}">Show courses</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/students}">Show students</a>
+        </li>
+    </ul>
+    <table class="table table-striped table-dark table-hover">
+        <caption style="caption-side: top">Groups</caption>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Year</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="group : ${groups}">
+            <td th:text="${group.id}">
+            </td>
+            <td th:text="${group.year}">
+            <td>
+                <form th:action="@{/groups/{id}/update(id=${group.id})}">
+                    <input type="submit" class="btn btn-primary" value="Update">
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/groups/{id}/delete(id=${group.id})}" th:method="post">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/groups/{id}/courses(id=${group.id})}">
+                    <input type="submit" class="btn btn-info" value="Show courses">
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/groups/{id}/students(id=${group.id})}">
+                    <input type="submit" class="btn btn-info" value="Show students">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/groups/create}" th:method="get">
+        <button class="btn btn-primary">Create group</button>
+    </form>
+</div>
+</body>
+</html>
